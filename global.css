@@ -1,0 +1,85 @@
+/* global.css */
+body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-family: sans-serif !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    min-height: 100vh !important;
+}
+
+nav {
+    background-color: #000000 !important;
+    width: 100% !important;
+    padding: 15px 0 !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+}
+
+nav a {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    margin: 0 10px !important;
+    font-weight: bold !important;
+    display: inline-block !important;
+}
+
+nav a:hover {
+    text-decoration: underline !important;
+    background-color: #000000 !important; 
+    color: #ffffff !important;
+}
+
+.calculator-card, .generator-card, .container {
+    margin: auto !important; 
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 3px solid #000000 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 30px !important;
+    min-width: 300px !important;
+}
+
+button {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #000000 !important;
+    border-radius: 0 !important;
+    padding: 12px 20px !important;
+    cursor: pointer !important;
+    font-family: sans-serif !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    transition: none !important;
+}
+
+button:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+input, textarea {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+    border-radius: 0 !important;
+    padding: 10px !important;
+    font-family: sans-serif !important;
+}
+
+h1, h2, h3, p, label, div, span {
+    font-family: sans-serif !important;
+}
+
+.result-container, .error, .error-message, .result-box, .output, .stat-box {
+    background-color: #ffffff !important;
+    border: 2px solid #000000 !important;
+    border-radius: 0 !important;
+    color: #000000 !important;
+    margin-top: 15px !important;
+    padding: 10px !important;
+}

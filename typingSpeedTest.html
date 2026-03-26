@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="global.css">
 </head>
 
 <body>
@@ -36,11 +37,10 @@
                 <button style="cursor:pointer; width: fit-content;padding: 10px;margin: 10px;" onclick="resetTest()">Reset Test</button>
             </div>
             <div class="timer">
-                <p>Time: <span id="time">60s</span></p>
+                <p>Time: <span id="time">30s</span></p>
             </div>
             <div class="result">
                 <p>WPM: <span id="wpm">0</span></p>
-                <p>Accuracy: <span id="accuracy">0</span></p>
             </div>
         </div>
     </div>
@@ -52,13 +52,12 @@
         const input = document.getElementById("typing-field");
         const time = document.getElementById("time");
         const wpm = document.getElementById("wpm");
-        const accuracy = document.getElementById("accuracy");
         function startTest() {
             if (timerInterval) return;
             startTime = new Date().getTime();
             input.focus();
             timerInterval = setInterval(() => {
-                const timeRemaining = 60 - Math.floor((new Date().getTime() - startTime) / 1000);
+                const timeRemaining = 30 - Math.floor((new Date().getTime() - startTime) / 1000);
                 time.textContent = timeRemaining + "s";
                 calculateWPM();
 
@@ -85,13 +84,13 @@
             const typedText = input.value.trim();
             const wordCount = typedText === "" ? 0 : typedText.split(/\s+/).length;
 
-            let timeElapsed = 60;
+            let timeElapsed = 30;
             if (startTime) {
                 timeElapsed = (new Date().getTime() - startTime) / 1000;
             }
             if (timeElapsed <= 0) timeElapsed = 1;
 
-            const wpmValue = Math.round((wordCount / timeElapsed) * 60);
+            const wpmValue = Math.round((wordCount / timeElapsed) * 30);
             wpm.textContent = wpmValue;
         }
     </script>
