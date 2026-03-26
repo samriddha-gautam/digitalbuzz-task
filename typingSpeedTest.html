@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <nav>
+        <a href="ageCalculator.html">Age Calculator</a> |
+        <a href="bmiCalculator.html">BMI Calculator</a> |
+        <a href="randomNamePicker.html">Random Name Picker</a> |
+        <a href="randomPasswordGenerator.html">Random Password Generator</a> |
+        <a href="simpleInterestCalculator.html">Simple Interest Calculator</a> |
+        <a href="typingSpeedTest.html">Typing Speed Test</a> |
+        <a href="wordCounter.html">Word Counter</a>
+    </nav>
+    <div class="container">
+        <div class="input-field" style="display: flex; flex-direction: column;">
+
+            <textarea style="resize: none;
+                    width: 90%;
+                    margin: 10px;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    font-size: 16px;
+                    text-align: center;
+                    " name="type-text" id="typing-field" placeholder="Type here..."></textarea>
+            <div style="display: flex; justify-content: space-evenly;">
+
+                <button style="cursor:pointer; width: fit-content;padding: 10px;margin: 10px;" onclick="startTest()">Start Test</button>
+                <button style="cursor:pointer; width: fit-content;padding: 10px;margin: 10px;" onclick="stopTest()">Stop Test</button>
+                <button style="cursor:pointer; width: fit-content;padding: 10px;margin: 10px;" onclick="resetTest()">Reset Test</button>
+            </div>
+            <div class="timer">
+                <p>Time: <span id="time">60s</span></p>
+            </div>
+            <div class="result">
+                <p>WPM: <span id="wpm">0</span></p>
+                <p>Accuracy: <span id="accuracy">0</span></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        let startTime = null;
+        let timerInterval = null;
+        let currentText = "";
+
+        const input = document.getElementById("typing-field");
+        const time = document.getElementById("time");
+        const wpm = document.getElementById("wpm");
+        const accuracy = document.getElementById("accuracy");
+        function startTest() {
+            if (timerInterval) return;
+            startTime = new Date().getTime();
+            input.focus();
+            timerInterval = setInterval(() => {
+                const timeRemaining = 60 - Math.floor((new Date().getTime() - startTime) / 1000);
+                time.textContent = timeRemaining + "s";
+                calculateWPM();
+
+                if (timeRemaining <= 0) {
+                    stopTest();
+                }
+            }, 1000);
+        }
+        function stopTest() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            calculateWPM();
+        }
+        function resetTest() {
+            clearInterval(timerInterval);
+            input.value = "";
+            time.textContent = "60s";
+            wpm.textContent = "0";
+            accuracy.textContent = "0";
+            startTime = null;
+            timerInterval = null;
+        }
+        function calculateWPM() {
+            const typedText = input.value.trim();
+            const wordCount = typedText === "" ? 0 : typedText.split(/\s+/).length;
+
+            let timeElapsed = 60;
+            if (startTime) {
+                timeElapsed = (new Date().getTime() - startTime) / 1000;
+            }
+            if (timeElapsed <= 0) timeElapsed = 1;
+
+            const wpmValue = Math.round((wordCount / timeElapsed) * 60);
+            wpm.textContent = wpmValue;
+        }
+    </script>
+</body>
+
+</html>

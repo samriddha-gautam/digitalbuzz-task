@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Word Counter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .container {
+      width: 600px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      border: 1px solid #dddddd;
+      box-shadow: 0 4px 8px #cccccc;
+    }
+
+    h1 {
+      margin-top: 0;
+      color: #2c3e50;
+      font-size: 28px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 200px;
+      padding: 15px;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      resize: none;
+      background-color: #fafafa;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #000000;
+      background-color: #ffffff;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 25px;
+    }
+
+    .stat-box {
+      background-color: #000000;
+      color: #ffffff;
+      padding: 15px 20px;
+      border-radius: 6px;
+      font-size: 16px;
+      width: 150px;
+    }
+
+    .stat-box span {
+      display: block;
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+
+<body>
+    <nav >
+        <a href="ageCalculator.html">Age Calculator</a> |
+        <a href="bmiCalculator.html">BMI Calculator</a> |
+        <a href="randomNamePicker.html">Random Name Picker</a> |
+        <a href="randomPasswordGenerator.html">Random Password Generator</a> |
+        <a href="simpleInterestCalculator.html">Simple Interest Calculator</a> |
+        <a href="typingSpeedTest.html">Typing Speed Test</a> |
+        <a href="wordCounter.html">Word Counter</a>
+    </nav>
+
+  <div class="container">
+    <h1>Word Counter</h1>
+    <textarea id="textInput" placeholder="Type or paste your text here..."></textarea>
+
+    <div class="stats">
+      <div class="stat-box">
+        Words
+        <span id="wordCount">0</span>
+      </div>
+      <div class="stat-box">
+        Characters
+        <span id="charCount">0</span>
+      </div>
+
+      <div class="stat-box">
+        Sentences
+        <span id="sentenceCount">0</span>
+      </div>
+    </div>
+
+    <script>
+      const textInput = document.getElementById('textInput');
+      const wordCount = document.getElementById('wordCount');
+      const characterCount = document.getElementById('charCount');
+      const sentenceCount = document.getElementById('sentenceCount');
+
+      textInput.addEventListener('input', function () {
+        const text = textInput.value;
+        characterCount.textContent = text.length;
+        const trimmedText = text.trim();
+        if (trimmedText === '') {
+          wordCount.textContent = '0';
+        } else {
+          const words = trimmedText.split(/\s+/);
+          wordCount.textContent = words.length;
+          const sentences = (text.match(/[^.!?]*[.!?]+/g) || []).length;
+          sentenceCount.textContent = sentences;
+        }
+      });
+    </script>
+
+</body>
+
+</html>

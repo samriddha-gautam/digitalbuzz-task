@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <nav>
+        <a href="ageCalculator.html">Age Calculator</a> |
+        <a href="bmiCalculator.html">BMI Calculator</a> |
+        <a href="randomNamePicker.html">Random Name Picker</a> |
+        <a href="randomPasswordGenerator.html">Random Password Generator</a> |
+        <a href="simpleInterestCalculator.html">Simple Interest Calculator</a> |
+        <a href="typingSpeedTest.html">Typing Speed Test</a> |
+        <a href="wordCounter.html">Word Counter</a>
+    </nav>
+    <div class="container">
+        <div class="input-field" style="display: flex; flex-direction: column; width: 30%; gap: 10px;">
+            <label for="name-list">Enter names in separate lines</label>
+            <textarea style="resize: none; padding: 10px; height: 100px;" id="name-list" placeholder="Enter names in different lines.. " required></textarea>
+            <button onclick="namePicker()">Pick a Random Name</button>
+        </div>
+        <div>
+            <h1>Selected Name: <span id="gen-name"></span></h1>
+        </div>
+    </div>
+    <script>
+        function namePicker() {
+            const nameList = document.getElementById("name-list").value;
+            const names = nameList.split("\n");
+            if (names.length <= 1) {
+                alert("Please enter at least two name")
+                return;
+            }
+            const randomIndex = Math.floor(Math.random() * names.length);
+            const selectedName = names[randomIndex]
+            document.getElementById("gen-name").textContent = selectedName;
+        }
+    </script>
+</body>
+
+</html>

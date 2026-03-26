@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .calculator-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid black;
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .input-group input:focus {
+            border-color: #000000;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: black;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s ease, transform 0.1s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #result-container {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #bmi-value {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #2d3748;
+        }
+
+        #bmi-category {
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .error {
+            color: #e53e3e;
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: none;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="ageCalculator.html">Age Calculator</a> |
+        <a href="bmiCalculator.html">BMI Calculator</a> |
+        <a href="randomNamePicker.html">Random Name Picker</a> |
+        <a href="randomPasswordGenerator.html">Random Password Generator</a> |
+        <a href="simpleInterestCalculator.html">Simple Interest Calculator</a> |
+        <a href="typingSpeedTest.html">Typing Speed Test</a> |
+        <a href="wordCounter.html">Word Counter</a>
+    </nav>
+
+<div class="calculator-card">
+    <h2>BMI Calculator</h2>
+    
+    <div class="error" id="error-msg">Please enter valid values.</div>
+
+    <div class="input-group">
+        <label>Height</label>
+        <div style="display: flex; gap: 10px;">
+            <input type="number" id="feet" placeholder="ft" min="1">
+            <input type="number" id="inches" placeholder="in" min="0" max="11">
+        </div>
+    </div>
+    
+    <div class="input-group">
+        <label for="weight">Weight (kg)</label>
+        <input type="number" id="weight" placeholder="e.g. 70" min="1">
+    </div>
+    
+    <button onclick="calculateBMI()">Calculate BMI</button>
+
+    <div id="result-container">
+        <div id="bmi-value">--</div>
+        <div id="bmi-category">--</div>
+    </div>
+</div>
+
+<script>
+    function calculateBMI() {
+        const feetVal = document.getElementById('feet').value;
+        const inchesVal = document.getElementById('inches').value;
+        const weightVal = document.getElementById('weight').value;
+        const resultContainer = document.getElementById('result-container');
+        const bmiValueEl = document.getElementById('bmi-value');
+        const bmiCategoryEl = document.getElementById('bmi-category');
+        const errorMsg = document.getElementById('error-msg');
+
+        // Reset display
+        errorMsg.style.display = 'none';
+        resultContainer.style.display = 'none';
+
+        if (!feetVal || !weightVal || feetVal <= 0 || weightVal <= 0 || (inchesVal && inchesVal < 0)) {
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        const feet = parseFloat(feetVal);
+        const inches = inchesVal ? parseFloat(inchesVal) : 0;
+        const totalInches = (feet * 12) + inches;
+        const heightInMeters = totalInches * 0.0254;
+
+        const weight = parseFloat(weightVal);
+        const bmi = weight / (heightInMeters * heightInMeters);
+
+        // Determine category and colors
+        let category = '';
+        let color = '';
+
+        if (bmi < 18.5) {
+            category = 'Underweight';
+            color = '#d69e2e'; // Yellow/Gold
+        } else if (bmi >= 18.5 && bmi <= 24.9) {
+            category = 'Normal';
+            color = '#38a169'; // Green
+        } else if (bmi >= 25 && bmi <= 29.9) {
+            category = 'Overweight';
+            color = '#dd6b20'; // Orange
+        } else {
+            category = 'Obese';
+            color = '#e53e3e'; // Red
+        }
+
+        bmiValueEl.textContent = bmi.toFixed(1);
+        bmiCategoryEl.textContent = category;
+        bmiCategoryEl.style.color = color;
+
+        resultContainer.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

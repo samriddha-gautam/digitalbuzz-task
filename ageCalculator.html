@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Age Calculator</title>
+    <!-- Use a modern, clean font -->
+    <style>
+        body {
+            background-color: #f3f4f6;
+            color: #1f2937;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .calculator-card {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-top: 0;
+            margin-bottom: 24px;
+            color: #111827;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease-in-out;
+        }
+
+        input[type="date"]:focus {
+            border-color: #3b82f6;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #2563eb;
+        }
+
+        .result-container {
+            margin-top: 24px;
+            padding: 16px;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 6px;
+            text-align: center;
+            display: none; /* Hidden by default */
+        }
+
+        .result-container.active {
+            display: block;
+        }
+
+        .result-container p {
+            margin: 0;
+            font-size: 16px;
+            color: #1e3a8a;
+            line-height: 1.5;
+        }
+
+        .result-container span {
+            font-weight: 600;
+            font-size: 18px;
+            color: #1d4ed8;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
+        
+        .error-message.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="ageCalculator.html">Age Calculator</a> |
+        <a href="bmiCalculator.html">BMI Calculator</a> |
+        <a href="randomNamePicker.html">Random Name Picker</a> |
+        <a href="randomPasswordGenerator.html">Random Password Generator</a> |
+        <a href="simpleInterestCalculator.html">Simple Interest Calculator</a> |
+        <a href="typingSpeedTest.html">Typing Speed Test</a> |
+        <a href="wordCounter.html">Word Counter</a>
+    </nav>
+
+    <div class="calculator-card">
+        <h1>Age Calculator</h1>
+        
+        <div class="input-group">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" required>
+            <div id="errorText" class="error-message">Enter a valid date.</div>
+        </div>
+
+        <button onclick="calculateAge()">Calculate Age</button>
+
+        <div id="resultBox" class="result-container">
+            <p id="resultText"></p>
+        </div>
+    </div>
+
+    <script>
+
+        const dobInput = document.getElementById('dob');
+        const today = new Date().toISOString().split('T')[0];
+        dobInput.max = today;
+
+        function calculateAge() {
+            const dobValue = dobInput.value;
+            const errorText = document.getElementById('errorText');
+            const resultBox = document.getElementById('resultBox');
+            const resultText = document.getElementById('resultText');
+
+            errorText.classList.remove('active');
+            resultBox.classList.remove('active');
+
+            if (!dobValue) {
+                errorText.innerText = 'Please select your    date of birth.';
+                errorText.classList.add('active');
+                return;
+            }
+
+            const birthDate = new Date(dobValue);
+            const currentDate = new Date();
+
+            if (birthDate > currentDate) {
+                errorText.innerText = 'Date of birth cannot be in the future.';
+                errorText.classList.add('active');
+                return;
+            }
+            let years = currentDate.getFullYear() - birthDate.getFullYear();
+            let months = currentDate.getMonth() - birthDate.getMonth();
+            let days = currentDate.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                const previousMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+                days += previousMonth.getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            resultText.innerHTML = `You are <span>${years}</span> years, <span>${months}</span> months, and <span>${days}</span> days old.`;
+            resultBox.classList.add('active');
+        }
+    </script>
+</body>
+</html>

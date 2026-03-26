@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Interest Calculator</title>
+    <script>
+        function calculateSimpleInterest(){
+            const principal = document.getElementById("principal").value;
+            const rate = document.getElementById("rate").value;
+            const time = document.getElementById("time").value;
+            const result = document.getElementById("result");
+            result.textContent = (principal * time * rate) / 100;
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <a href="ageCalculator.html">Age Calculator</a> |
+        <a href="bmiCalculator.html">BMI Calculator</a> |
+        <a href="randomNamePicker.html">Random Name Picker</a> |
+        <a href="randomPasswordGenerator.html">Random Password Generator</a> |
+        <a href="simpleInterestCalculator.html">Simple Interest Calculator</a> |
+        <a href="typingSpeedTest.html">Typing Speed Test</a> |
+        <a href="wordCounter.html">Word Counter</a>
+    </nav>
+    <div class="calculator-card">
+        <h1>Calculate Simple Interest</h1>
+        <div class="input-group">
+            <label for="principal">Principal Amount</label>
+            <input type="number" id="principal" placeholder="Enter principal amount">
+        </div>
+        <div class="input-group">
+            <label for="rate">Interest Rate</label>
+            <input type="number" id="rate" placeholder="Enter rate of interest">
+        </div>
+        <div class="input-group">
+            <label for="time">Time Period (in years)</label>
+            <input type="number" id="time" placeholder="Enter time per years">
+        </div>
+        <button onclick="calculateSimpleInterest()">Calculate</button>
+        <div class="result-box">
+            <p>Simple Interest: <span id="result"></span></p>
+        </div>
+    </div>
+</body>
+</html>
